@@ -311,13 +311,18 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'USUARIOS'],
         [
-            'text'        => 'pages',
+            'text'        => 'Roles',
+            'route'         => 'roles.index',
+            'icon'        => 'far fa-fw fa-file',
+        ],
+        [
+            'text'        => 'Permisos',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
         ],
+
         ['header' => 'CLIENTE'],
         [
             'text' => 'Lista de clientes',
@@ -431,7 +436,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -476,12 +481,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

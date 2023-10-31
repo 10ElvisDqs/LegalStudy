@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/profile',[UsuarioController::class,'profile']);
     Route::resource('/client',ClienteController::class)->names('cliente');
+    Route::resource('/roles',RoleController::class)->names('roles');
 });
 
 Route::get('/auth/redirect',[AuthController::class,'redirect']);

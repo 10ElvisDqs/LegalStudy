@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 
 class ClienteController extends Controller
 {
@@ -13,7 +14,8 @@ class ClienteController extends Controller
     public function index()
     {
         //
-        return "Lista de cliente";
+        $clientes = Client::all();
+        return view('cliente.listCliente',compact('clientes'));
     }
 
     /**
@@ -56,7 +58,7 @@ class ClienteController extends Controller
         $cliente->save();
 
 
-        return back();
+        return back()->with('message','ok');
     }
 
     /**
@@ -72,7 +74,8 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cliente=Client::find($id);
+        return view('cliente.editCliente',compact('cliente'));
     }
 
     /**
@@ -80,7 +83,21 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $cliente=Client::find($id);
+
+        $cliente->dni = $request->input('dni');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->nombre = $request->input('nombre');
+        $cliente->email = $request->input('email');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->direccion = $request->input('direccion');
+        $cliente->estado = $request->input('estado');
+
+        $cliente->save();
+
+
+        return back()->with('message','Actualizado Correctamente');
     }
 
     /**
@@ -89,5 +106,8 @@ class ClienteController extends Controller
     public function destroy(string $id)
     {
         //
+        $cliente = Client::find($id);
+        $cliente->delete();
+        return back();
     }
 }
