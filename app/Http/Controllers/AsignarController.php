@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RoleController extends Controller
+class AsignarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $roles = Role::all();
-        return view('cliente.user.roles',compact('roles'));
+        //
+        $users = User::all();
+        return view('cliente.user.listUser', compact('users'));
     }
 
     /**
@@ -31,9 +32,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-
-        $roles = Role::create(['name' => $request->input('nombre')]);
-        return  back();
+        //
     }
 
     /**
@@ -47,21 +46,25 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit(string $id)
     {
-        //$role = Role::find($id);
-        $permisos = Permission::all();
-        return view('cliente.user.rolePermiso',compact('role','permisos'));
+        //
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('cliente.user.userRol', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, string $id)
     {
-        //
-        $role->permissions()->sync($request->permisos);
-        return redirect()->route('roles.edit',$role);
+        $valorDelTeamId=1;
+        $user = User::find($id);
+         $user->roles()->sync($request->roles);
+
+         return redirect()->route('asignar.edit',$user);
+
     }
 
     /**

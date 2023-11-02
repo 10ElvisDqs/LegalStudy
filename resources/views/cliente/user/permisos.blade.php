@@ -3,25 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Administracion de Clientes </h1>
+    <h1>Administracion de Permisos</h1>
 @stop
 
 @section('content')
     <p>Welcome to this beautiful admin panel.</p>
     <div class="card">
-        @can('Crear Cliente')
-            <div class="card-header">
-                <a href="{{route('cliente.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
-            </div>
-        @endcan
+        <div class="card-header">
+            <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-key" class="float-right" data-toggle="modal" data-target="#modalPurple" />
+        </div>
         <div class="card-body">
             {{-- Setup data for datatables --}}
                 @php
                 $heads = [
                     'ID',
-                    'Apellidos',
-                    'Nombres',
-                    ['label' => 'Telefono', 'width' => 40],
+                    'Nombre',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 15],
                 ];
 
@@ -44,25 +40,21 @@
 
                 {{-- Minimal example / fill data using the component slot --}}
                 <x-adminlte-datatable id="table1" :heads="$heads"  head-theme="dark" :config="$config">
-                    @foreach($clientes as $cliente)
+                    @foreach($permisos as $permiso)
                         <tr>
-                           <td>{{ $cliente->id}}</td>
-                           <td>{{ $cliente->apellido}}</td>
-                           <td>{{ $cliente->nombre}}</td>
-                           <td>{{ $cliente->telefono}}</td>
+                           <td>{{ $permiso->id}}</td>
+                           <td>{{ $permiso->name}}</td>
                            <td>
                             {{-- artic --}}
-                            <a href="{{route('cliente.edit',$cliente)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <a href="{{route('permisos.edit',$permiso)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>
                             {{-- form --}}
-                            @can('eliminar cliente')
-                                <form style="display: inline" action="{{route('cliente.destroy',$cliente)}}" method="post" class="formEliminar">
-                                    @csrf
-                                    @method('delete')
-                                    {!!$btnDelete!!}
-                                </form>
-                            @endcan
+                            <form style="display: inline" action="{{route('permisos.destroy',$permiso)}}" method="post" class="formEliminar">
+                                 @csrf
+                                 @method('delete')
+                                {!!$btnDelete!!}
+                            </form>
                         </td>
                         </tr>
                     @endforeach
@@ -71,6 +63,25 @@
 
         </div>
     </div>
+
+    {{-- Themed --}}
+    <x-adminlte-modal id="modalPurple" title="Nuevo Permiso" theme="primary"
+    icon="fas fa-bolt" size='lg' disable-animations>
+        <form action="{{route('permisos.store')}}" method="post">
+            @csrf
+
+            {{-- With label, invalid feedback disabled and form group class --}}
+            <div class="row">
+                <x-adminlte-input name="nombre" label="Nombre" placeholder="Aqui su permiso..."
+                    fgroup-class="col-md-6" disable-feedback/>
+            </div>
+
+            <x-adminlte-button type="submit" label="Guardar" theme="primary" icon="fas fa-key"/>
+
+        </form>
+    </x-adminlte-modal>
+    {{-- Example button to open modal --}}
+    <x-adminlte-button label="Open Modal" data-toggle="modal" data-target="#modalPurple" class="bg-purple"/>
 @stop
 
 @section('css')

@@ -3,25 +3,22 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Administracion de Clientes </h1>
+    <h1>Administracion de Usuarios </h1>
 @stop
 
 @section('content')
     <p>Welcome to this beautiful admin panel.</p>
     <div class="card">
-        @can('Crear Cliente')
-            <div class="card-header">
-                <a href="{{route('cliente.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
-            </div>
-        @endcan
+        <div class="card-header">
+            <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-key" class="float-right" data-toggle="modal" data-target="#modalPurple" />
+        </div>
         <div class="card-body">
             {{-- Setup data for datatables --}}
                 @php
                 $heads = [
                     'ID',
-                    'Apellidos',
-                    'Nombres',
-                    ['label' => 'Telefono', 'width' => 40],
+                    'Nombre',
+                    'Correo',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 15],
                 ];
 
@@ -44,25 +41,22 @@
 
                 {{-- Minimal example / fill data using the component slot --}}
                 <x-adminlte-datatable id="table1" :heads="$heads"  head-theme="dark" :config="$config">
-                    @foreach($clientes as $cliente)
+                    @foreach($users as $user)
                         <tr>
-                           <td>{{ $cliente->id}}</td>
-                           <td>{{ $cliente->apellido}}</td>
-                           <td>{{ $cliente->nombre}}</td>
-                           <td>{{ $cliente->telefono}}</td>
+                           <td>{{ $user->id}}</td>
+                           <td>{{ $user->name}}</td>
+                           <td>{{ $user->email}}</td>
                            <td>
                             {{-- artic --}}
-                            <a href="{{route('cliente.edit',$cliente)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <a href="{{route('asignar.edit',$user)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>
                             {{-- form --}}
-                            @can('eliminar cliente')
-                                <form style="display: inline" action="{{route('cliente.destroy',$cliente)}}" method="post" class="formEliminar">
-                                    @csrf
-                                    @method('delete')
-                                    {!!$btnDelete!!}
-                                </form>
-                            @endcan
+                            <form style="display: inline" action="{{route('asignar.destroy',$user)}}" method="post" class="formEliminar">
+                                 @csrf
+                                 @method('delete')
+                                {!!$btnDelete!!}
+                            </form>
                         </td>
                         </tr>
                     @endforeach
@@ -70,7 +64,9 @@
 
 
         </div>
-    </div>
+      </div>
+
+    {{-- Themed --}}
 @stop
 
 @section('css')
