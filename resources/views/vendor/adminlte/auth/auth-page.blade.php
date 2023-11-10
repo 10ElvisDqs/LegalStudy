@@ -1,3 +1,4 @@
+
 @extends('adminlte::master')
 
 @php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
@@ -7,10 +8,12 @@
 @else
     @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
 @endif
-
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    @yield('estilos')
+
+
 @stop
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
@@ -55,12 +58,37 @@
                     <h3 class="card-title float-none text-center">
                         @yield('auth_header')
                     </h3>
+
+                    <div class="row mt-3">
+                        <div class="col-4"></div>
+                        <div class="col-4">iniciar con:</div>
+                        <div class="col-4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <a href="{{ url('auth/redirect')}}" >
+                                    <img src="{{ asset('images/logo_google.png') }}" alt="Texto alternativo del logo"
+                                    class="img-circle img-tamano">
+                                </a>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                        <div class="col-4"></div>
+                    </div>
+                    <div class="row">
+                    </div>
                 </div>
             @endif
 
             {{-- Card Body --}}
             <div class="card-body {{ $auth_type ?? 'login' }}-card-body {{ config('adminlte.classes_auth_body', '') }}">
                 @yield('auth_body')
+
             </div>
 
             {{-- Card Footer --}}

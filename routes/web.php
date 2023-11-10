@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AsignarController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CasosController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
+use App\Models\Client;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,13 +32,16 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $clients = Client::all();
+        $counter = User::count();
+        return view('dashboard',compact('clients','counter'));
     })->name('dashboard');
     Route::get('/profile',[UsuarioController::class,'profile']);
     Route::resource('/client',ClienteController::class)->names('cliente');
     Route::resource('/roles',RoleController::class)->names('roles');
     Route::resource('/permisos',PermisoController::class)->names('permisos');
     Route::resource('/usuarios',AsignarController::class)->names('asignar');
+    Route::resource('/casos',CasosController::class)->names('casos');
 });
 
 Route::get('/auth/redirect',[AuthController::class,'redirect']);

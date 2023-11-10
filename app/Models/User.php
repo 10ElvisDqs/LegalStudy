@@ -11,6 +11,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use GuzzleHttp\Client;
+use Spatie\Permission\Models\Role;
+use Google_Client;
+use Google_Service_Plus;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -64,4 +69,51 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function adminlte_image(){
+        $user=auth()->user();
+        if ($user->google_token!=NULL){
+            $token=$user->google_token;
+
+            $client = new Client();
+            $url = 'https://www.googleapis.com/oauth2/v2/userinfo';
+
+            // Realiza la solicitud a la API de Google con el token de acceso en el encabezado de autorización.
+            $response = $client->get($url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' .$token,
+                ],
+            ]);
+
+            if ($response->getStatusCode() == 200) {
+                $datosUsuario = json_decode($response->getBody());
+                $fotoPerfil = $datosUsuario->picture;
+                return $fotoPerfil;
+                // $fotoPerfil contendrá la URL de la foto de perfil del usuario.
+            }
+        }else {
+            return 'https://picsum.photos/300/300';
+            // Maneja cualquier error que pueda ocurrir durante la solicitud.
+        }
+    }
+
+    public function adminlte_desc(){
+
+        $user = auth()->user();
+
+        if($user->hasRole('Administrador')){
+
+            return 'Administrador';
+        }
+        if($user->hasRole('Empleado')){
+            return 'Empleado';
+        }
+        if($user->hasRole('usuario')){
+            return 'Usuario ';
+        }
+
+    }
+
+
 }

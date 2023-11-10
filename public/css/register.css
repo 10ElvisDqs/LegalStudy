@@ -1,0 +1,5 @@
+.container{
+    background: radial-gradient(circle at 20% 20%, #4D3589, transparent 60%),
+    radial-gradient(circle at 50% 50%, #00EAFF, transparent 80%),
+    radial-gradient(circle at 80% 80%, #0025CE, transparent 50%);
+}

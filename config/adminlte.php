@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'LegalStudy',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,10 +63,10 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Legal</b>Study',
+    'logo_img' => 'images/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
+    'logo_img_xl' => false,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Admin Logo',
 
@@ -89,8 +89,8 @@ return [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 500,
+            'height' => 500,
         ],
     ],
 
@@ -109,11 +109,11 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'images/logo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 160,
+            'height' => 160,
         ],
     ],
 
@@ -130,10 +130,10 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -150,8 +150,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -311,41 +311,93 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        ['header' => 'USUARIOS',
-          'can' => 'Administrador configuracion',
-        ],
         [
-            'text'        => 'Roles',
-            'route'         => 'roles.index',
-            'icon'        => 'far fa-fw fa-file',
-            'can' => 'Administrador configuracion',
-        ],
-        [
-            'text'        => 'Permisos',
-            'route'         => 'permisos.index',
-            'icon'        => 'far fa-fw fa-file',
-            'can' => 'Administrador configuracion',
-        ],
-
-        [
-            'text'        => 'Usuarios',
-            'route'         => 'asignar.index',
-            'icon'        => 'far fa-fw fa-file',
-            'can' => 'Administrador configuracion',
-
-        ],
-
-        ['header' => 'CLIENTE'],
-        [
-            'text' => 'Lista de clientes',
-            'route'  => 'cliente.index',
+            'text' => 'Inicio',
+            'url'  => 'dashboard',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'Nuevo Cliente',
-            'route'  => 'cliente.create',
+            'text'    => 'Usuario',
+            'can' => 'Administrador configuracion',
+            'icon' => 'fas fa-user-lock',
+            'submenu' => [
+                [
+                    'text'        => 'Roles',
+                    'route'         => 'roles.index',
+                    'icon'        => 'far fa-fw fa-file',
+                    'can' => 'Administrador configuracion',
+                ],
+                [
+                    'text'        => 'Permisos',
+                    'route'         => 'permisos.index',
+                    'icon'        => 'far fa-fw fa-file',
+                    'can' => 'Administrador configuracion',
+                ],
+
+                [
+                    'text'        => 'Usuarios',
+                    'route'         => 'asignar.index',
+                    'icon'        => 'far fa-fw fa-file',
+                    'can' => 'Administrador configuracion',
+
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Cliente',
             'icon' => 'fas fa-fw fa-user',
-            'can' => 'Crear Cliente',
+            'submenu' => [
+
+                [
+                    'text' => 'Lista de clientes',
+                    'route'  => 'cliente.index',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
+                [
+                    'text' => 'Nuevo Cliente',
+                    'route'  => 'cliente.create',
+                    'icon' => 'fas fa-fw fa-user',
+                    'can' => 'Crear Cliente',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Gestion de Casos',
+            'icon'    => 'fas fa-database',
+            'submenu' => [
+                [
+                    'text' => 'Lista casos',
+                    'route'  => 'casos.index',
+                ],
+                [
+                    'text'    => 'level_one',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'level_two',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text'    => 'level_two',
+                            'url'     => '#',
+                            'submenu' => [
+                                [
+                                    'text' => 'level_three',
+                                    'url'  => '#',
+                                ],
+                                [
+                                    'text' => 'level_three',
+                                    'url'  => '#',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'level_one',
+                    'url'  => '#',
+                ],
+            ],
         ],
         [
             'text' => 'profile',
