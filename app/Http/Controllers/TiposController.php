@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Categoria;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 
-class CasosController extends Controller
+class TiposController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        return view('moduloCasos.listCasos',compact('users'));
+        $tipos=Tipo::all();
+        $categorias = Categoria::all();
+        return view('moduloCategorias.listTipo',compact('tipos','categorias'));
     }
 
     /**
@@ -30,6 +32,23 @@ class CasosController extends Controller
     public function store(Request $request)
     {
         //
+
+         $validacion = $request->validate([
+             'nombre' => 'required|string|max:100',
+             'precio' => 'required|numeric',  // Mantén la validación numérica
+             'id_categoria' => 'required|numeric',
+         ]);
+        // Obtén el ID de la categoría seleccionada
+        $idCategoria = $request->input('id_categoria');
+
+
+        $Tipo =new Tipo();
+        $Tipo->nombre = $request->input('nombre');
+        $Tipo->precio = $request->input('precio');
+        $Tipo->id_categoria = $idCategoria;
+        $Tipo->save();
+        return back()->with('message','ok');
+
     }
 
     /**

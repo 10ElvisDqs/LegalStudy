@@ -10,15 +10,19 @@
     <p>Welcome to this beautiful admin panel.</p>
     <div class="card">
         <div class="card-header">
-            <x-adminlte-button label="Nuevo Caso" theme="primary" icon="fas fa-file-alt" class="float-right" data-toggle="modal" data-target="#modalPurple" />
+            {{-- <a href="{{route('casos.create')}}" class="btn btn-primary float-right mt-2 mr-2 fas fa-file-alt">Nuevo Caso</a> --}}
+            <a href="{{route('casos.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
+            {{-- <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-key" class="float-right" data-toggle="modal" data-target="#modalPurple" /> --}}
+            {{-- <x-adminlte-button label="Nuevo Caso" theme="primary" icon="fas fa-file-alt" class="float-right" data-toggle="modal" data-target="#modalPurple" /> --}}
         </div>
         <div class="card-body">
             {{-- Setup data for datatables --}}
                 @php
                 $heads = [
                     'ID',
-                    'Nombre',
-                    'Correo',
+                    'Titulo',
+                    'Fecha',
+                    'Estado',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 15],
                 ];
 
@@ -41,18 +45,41 @@
 
                 {{-- Minimal example / fill data using the component slot --}}
                 <x-adminlte-datatable id="table1" :heads="$heads"  head-theme="dark" :config="$config">
-                    @foreach($users as $user)
+                    @foreach($casos as $caso)
                         <tr>
-                           <td>{{ $user->id}}</td>
-                           <td>{{ $user->name}}</td>
-                           <td>{{ $user->email}}</td>
+                           <td>{{ $caso->id}}</td>
+                           <td>{{ $caso->titulo}}</td>
+                           <td>{{ $caso->fecha_apertura}}</td>
                            <td>
+
+                                @switch($caso->estado)
+                                    @case('abierto')
+                                        <div class="btn btn-success rounded-pill px-3">{{$caso->estado }}</div>
+                                        @break
+
+                                    @case('ejecucion')
+                                        <div class="btn btn-info rounded-pill px-3">{{$caso->estado }}</div>
+                                        @break
+
+                                    @case('cerrado')
+                                        <div class="btn btn-danger rounded-pill px-3">{{$caso->estado }}</div>
+                                        @break
+
+                                    @default
+                                        Opción no válida
+                                @endswitch
+
+                           </td>
+                           <td>
+                            <a href="{{route('casos.show',$caso->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                <i class="fa fa-lg fa-fw fa-eye"></i>
+                            </a>
                             {{-- artic --}}
-                            <a href="{{route('asignar.edit',$user)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <a href="{{route('asignar.edit',$caso)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>
                             {{-- form --}}
-                            <form style="display: inline" action="{{route('asignar.destroy',$user)}}" method="post" class="formEliminar">
+                            <form style="display: inline" action="{{route('asignar.destroy',$caso)}}" method="post" class="formEliminar">
                                  @csrf
                                  @method('delete')
                                 {!!$btnDelete!!}

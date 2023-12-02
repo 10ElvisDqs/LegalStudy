@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AsignarController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CasosController;
+use App\Http\Controllers\CasoController;
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TiposController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Client;
 use App\Models\User;
@@ -41,7 +44,10 @@ Route::middleware([
     Route::resource('/roles',RoleController::class)->names('roles');
     Route::resource('/permisos',PermisoController::class)->names('permisos');
     Route::resource('/usuarios',AsignarController::class)->names('asignar');
-    Route::resource('/casos',CasosController::class)->names('casos');
+    Route::resource('/casos',CasoController::class)->names('casos');
+    Route::resource('/categorias',CategoriasController::class)->names('categorias');
+    Route::resource('/tipos',TiposController::class)->names('tipos');
+    Route::post('myurl',[SearchController::class,'show']);
 });
 
 Route::get('/auth/redirect',[AuthController::class,'redirect']);
