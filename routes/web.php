@@ -16,6 +16,8 @@ use App\Http\Controllers\AsignarCasoController;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +40,43 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
+        // $clients = Client::all();
+        // $counter = User::count();
+        // $totalPreciosCasos = DB::table('casos')
+        // ->join('tipos', 'casos.id_tipo', '=', 'tipos.id')
+        // ->select(DB::raw('SUM(tipos.precio) as total_precios_casos'))
+        // ->first();
+        // return view('dashboard',compact('clients','counter'.'totalPreciosCasos'));
+
         $clients = Client::all();
         $counter = User::count();
-        return view('dashboard',compact('clients','counter'));
+        $canClient = Client::count();
+        $totalPreciosCasos = DB::table('casos')
+            ->join('tipos', 'casos.id_tipo', '=', 'tipos.id')
+            ->select(DB::raw('SUM(tipos.precio) as total_precios_casos'))
+            ->first();
+        
+
+        $mes= Carbon::now()->month;
+        $data = DB::table('casos')
+            ->join('tipos', 'casos.id_tipo', '=', 'tipos.id')
+            ->select('tipos.nombre', DB::raw('COUNT(*) as cantidad'))
+            ->whereRaw("MONTH(casos.fecha_apertura) = $mes")
+            ->groupBy('tipos.nombre')
+            ->orderByDesc('cantidad')
+            ->take(5)  // Obtener los 5 tipos más solicitados, ajusta según tus necesidades
+            ->get();
+
+        $formattedData = [];
+
+        foreach ($data as $row) {
+            $formattedData[$row->nombre] = $row->cantidad;
+        }
+
+
+        // Convertir el objeto stdClass a un tipo primitivo (por ejemplo, float o int)
+        $totalPreciosCasos = (float) $totalPreciosCasos->total_precios_casos;
+        return view('dashboard', compact('clients', 'counter', 'totalPreciosCasos','canClient','formattedData', 'mes'));
     })->name('dashboard');
     Route::get('/profile',[UsuarioController::class,'profile']);
     Route::resource('/client',ClienteController::class)->names('cliente');
@@ -53,6 +89,8 @@ Route::middleware([
     Route::resource('/tipos',TiposController::class)->names('tipos');
     Route::resource('/asignarcaso',AsignarCasoController::class)->names('asignarcaso');
     Route::post('myurl',[SearchController::class,'show']);
+    
+    Route::get('/casos-por-mes/{mes}', [CasoController::class, 'casosPorMes']);
     
 });
 
@@ -76,5 +114,6 @@ Route::post('/documento/store', [DocumentoController::class, 'store'])->name('do
 Route::delete('/documento/destroy/{id}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
 Route::get('/documento/edit/{id}', [DocumentoController::class, 'edit'])->name('documento.edit');
 Route::put('/documento/update/{id}', [DocumentoController::class, 'update'])->name('documento.update');
+Route::get('/documento/pdf', [DocumentoController::class, 'pdf'])->name('documento.pdf');
 
 

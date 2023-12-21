@@ -29,7 +29,7 @@ class NotificacionController extends Controller
         /* $casos = Caso::all();
         return view('mails.pdf', compact('notificaciones')); */
         $pdf = PDF::loadView('mails.pdf', ['notificaciones' => $notificaciones]);
-        $pdf->loadHTML('<h1>Test</h1>');
+        // k$pdf->loadHTML('<h1>Test</h1>');
         return $pdf->stream();
     }
 

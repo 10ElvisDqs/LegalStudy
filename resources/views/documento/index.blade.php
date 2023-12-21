@@ -3,15 +3,16 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-<h1>Administracion de Clientes </h1>
+<h1>Administracion de Documentos </h1>
 @stop
 
 @section('content')
-<p>Welcome to this beautiful admin panel.</p>
+<p>Welcome to this beautiful admin .</p>
 <div class="card">
 
     <div class="card-header">
         <a href="{{route('documento.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
+        <a href="{{route('documento.pdf')}}" class="btn btn-primary float-right mt-2 mr-2">PDF</a>
     </div>
 
     <div class="card-body">

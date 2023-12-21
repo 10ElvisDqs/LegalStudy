@@ -51,6 +51,18 @@ class CasoController extends Controller
         return view('moduloCasos.detailsCaso',compact('caso','categorias','tipos'));
     }
 
+    public function casosPorMes($mes)
+    {
+        $casosPorMes = Caso::join('tipos', 'casos.id_tipo', '=', 'tipos.id')
+            ->select(DB::raw('MONTH(fecha_apertura) as mes'), 'tipos.nombre as tipo', DB::raw('COUNT(*) as cantidad'))
+            ->where(DB::raw('MONTH(fecha_apertura)'), $mes)
+            ->groupBy('mes', 'tipo')
+            ->orderBy('mes')
+            ->get();
+
+        return response()->json($casosPorMes);
+    }
+
 
     /**
      * Show the form for creating a new resource.

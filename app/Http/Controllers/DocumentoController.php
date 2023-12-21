@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 
 class DocumentoController extends Controller
@@ -18,6 +19,13 @@ class DocumentoController extends Controller
         $documentos = Documento::all();
         $casos = Caso::all();
         return view('documento.index')->with('documentos', $documentos, 'casos', $casos);
+    }
+
+    public function pdf()
+    {
+        $documentos = Documento::all();
+        $pdf = PDF::loadView('documento.pdf', ['documentos' => $documentos]);
+        return $pdf->stream();
     }
 
 
