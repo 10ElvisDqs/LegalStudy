@@ -21,6 +21,7 @@ class CasoController extends Controller
         $users = User::all();
         $casos = Caso::all();
         return view('moduloCasos.listCasos',compact('users','casos'));
+        // return view('moduloCasos.asignarCaso');
     }
 
     public function buscador(Request $request){
@@ -31,6 +32,26 @@ class CasoController extends Controller
         $caso=$request;
         return view('moduloCasos.detailsCasos',compact('caso'));
     }
+    public function asignarCaso(string $caso)
+    {
+        $caso = Caso::find($caso); // asumiendo que tu modelo se llama Caso
+        $categorias=Categoria::all();
+        $tipos=Tipo::all();
+        return view('moduloCasos.asignarCaso',compact('caso','categorias','tipos'));
+        // return view('moduloCasos.asignarCaso',compact('caso'));
+        
+    }
+    public function show(string $caso)
+    {
+        //
+        // Aquí puedes acceder a la información del caso utilizando el identificador $caso
+        $caso = Caso::find($caso); // asumiendo que tu modelo se llama Caso
+        $categorias=Categoria::all();
+        $tipos=Tipo::all();
+        return view('moduloCasos.detailsCaso',compact('caso','categorias','tipos'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -84,15 +105,7 @@ class CasoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $caso)
-    {
-        //
-        // Aquí puedes acceder a la información del caso utilizando el identificador $caso
-        $caso = Caso::find($caso); // asumiendo que tu modelo se llama Caso
-        $categorias=Categoria::all();
-        $tipos=Tipo::all();
-        return view('moduloCasos.detailsCaso',compact('caso','categorias','tipos'));
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -100,6 +113,8 @@ class CasoController extends Controller
     public function edit(string $id)
     {
         //
+               
+    
     }
 
     /**
@@ -117,4 +132,7 @@ class CasoController extends Controller
     {
         //
     }
+
+    
+        
 }

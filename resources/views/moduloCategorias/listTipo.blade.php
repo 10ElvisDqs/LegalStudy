@@ -11,11 +11,11 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                @can('Crear Cliente')
+                <!-- @can('Crear Cliente') -->
                     <div class="card-header">
                         <x-adminlte-button label="Nuevo" theme="primary" icon="fas fa-key" class="float-right" data-toggle="modal" data-target="#modalPurple" />
                     </div>
-                @endcan
+                <!-- @endcan -->
                 <div class="card-body">
                     {{-- Setup data for datatables --}}
                         @php

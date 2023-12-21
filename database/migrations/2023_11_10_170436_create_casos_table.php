@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->date('fecha_apertura');
             $table->string('estado');
-            $table->string('id_tipo');
+            $table->unsignedBigInteger('id_tipo');
             $table->unsignedBigInteger('id_cliente');
             $table->timestamps();
 

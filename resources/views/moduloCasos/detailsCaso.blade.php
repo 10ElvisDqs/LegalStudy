@@ -35,6 +35,8 @@
 
                 <div class="row">
                     <div class="col-6">
+                  
+
                         <x-adminlte-input id="user" name="user" label="User" placeholder="{{ $caso->cliente->nombre }}" label-class="text-lightblue">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">

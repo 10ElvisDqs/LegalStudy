@@ -9,11 +9,14 @@
 @section('content')
     <p>Welcome to this beautiful admin panel.</p>
     <div class="card">
-        @can('Crear Cliente')
+        <!-- @can('Crear Cliente')
             <div class="card-header">
                 <a href="{{route('cliente.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
             </div>
-        @endcan
+        @endcan -->
+        <div class="card-header">
+                <a href="{{route('cliente.create')}}" class="btn btn-primary float-right mt-2 mr-2">Nuevo</a>
+            </div>
         <div class="card-body">
             {{-- Setup data for datatables --}}
                 @php

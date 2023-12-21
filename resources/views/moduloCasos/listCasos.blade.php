@@ -29,6 +29,9 @@
                 $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </button>';
+                $btnAsignar = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Asignar">
+                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                            </button>';
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                                 <i class="fa fa-lg fa-fw fa-trash"></i>
                             </button>';
@@ -74,6 +77,7 @@
                             <a href="{{route('casos.show',$caso->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                                 <i class="fa fa-lg fa-fw fa-eye"></i>
                             </a>
+                         
                             {{-- artic --}}
                             <a href="{{route('asignar.edit',$caso)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>

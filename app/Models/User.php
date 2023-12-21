@@ -17,7 +17,7 @@ use Google_Client;
 use Google_Service_Plus;
 
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;

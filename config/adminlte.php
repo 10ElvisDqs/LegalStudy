@@ -318,27 +318,27 @@ return [
         ],
         [
             'text'    => 'Usuario',
-            'can' => 'Administrador configuracion',
+            //'can' => 'Administrador configuracion',
             'icon' => 'fas fa-user-lock',
             'submenu' => [
                 [
                     'text'        => 'Roles',
                     'route'         => 'roles.index',
                     'icon'        => 'far fa-fw fa-file',
-                    'can' => 'Administrador configuracion',
+                    //'can' => 'Administrador configuracion',
                 ],
                 [
                     'text'        => 'Permisos',
                     'route'         => 'permisos.index',
                     'icon'        => 'far fa-fw fa-file',
-                    'can' => 'Administrador configuracion',
+                    //'can' => 'Administrador configuracion',
                 ],
 
                 [
                     'text'        => 'Usuarios',
                     'route'         => 'asignar.index',
                     'icon'        => 'far fa-fw fa-file',
-                    'can' => 'Administrador configuracion',
+                    //'can' => 'Administrador configuracion',
 
                 ],
             ],
@@ -357,7 +357,7 @@ return [
                     'text' => 'Nuevo Cliente',
                     'route'  => 'cliente.create',
                     'icon' => 'fas fa-fw fa-user',
-                    'can' => 'Crear Cliente',
+                    //'can' => 'Crear Cliente',
                 ],
             ],
         ],
@@ -370,12 +370,16 @@ return [
                     'route'  => 'casos.index',
                 ],
                 [
+                    'text' => 'Asignar Casos',
+                    // 'route'  => 'asignarcaso',
+                ],
+                [
                     'text'    => 'level_one',
                     'url'     => '#',
                     'submenu' => [
                         [
-                            'text' => 'level_two',
-                            'url'  => '#',
+                            'text' => 'Asignacion de Casos',
+                            'route'  => 'asignarcaso.index',
                         ],
                         [
                             'text'    => 'level_two',
@@ -401,23 +405,38 @@ return [
         ],
         [
             'text'    => 'Modulo de Categorias',
-            'can' => 'Administrador configuracion',
+            //'can' => 'Administrador configuracion',
             'icon' => 'fas fa-th-list',
             'submenu' => [
                 [
                     'text'        => 'Lista de Categorias',
                     'route'         => 'categorias.index',
                     'icon'        => 'far fa-fw fa-file',
-                    'can' => 'Administrador configuracion',
+                    //'can' => 'Administrador configuracion',
                 ],
                 [
                     'text'        => 'Lista Tipos',
                     'route'         => 'tipos.index',
                     'icon'        => 'far fa-fw fa-file',
-                    'can' => 'Administrador configuracion',
+                    //'can' => 'Administrador configuracion',
                 ],
+
+                
             ],
         ],
+        [
+            'text'        => 'Notificacion',
+            'route'         => 'enviar-correo.index',
+            'icon'        => 'far fa-fw fa-file',
+            //'can' => 'Administrador configuracion',
+        ],
+        [
+            'text'        => 'Documentos',
+            'route'         => 'documento.index',
+            'icon'        => 'far fa-folder-open',
+            //'can' => 'Administrador configuracion',
+        ],
+
         [
             'text' => 'profile',
             'url'  => 'profile',
