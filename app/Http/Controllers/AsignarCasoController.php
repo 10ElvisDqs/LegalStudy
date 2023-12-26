@@ -6,7 +6,7 @@ use App\Models\Caso;
 use App\Models\Categoria;
 use App\Models\Client;
 use App\Models\Tipo;
-use App\Models\Asignacion_Caso;
+use App\Models\AsignacionCaso;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -65,7 +65,7 @@ class AsignarCasoController extends Controller
       //dd($nombre_abogado, $ID_abogado);
 
 
-       $CasoAsgnado=new Asignacion_Caso();
+       $CasoAsgnado=new AsignacionCaso();
        $CasoAsgnado->id_abogado=$request->input('id_abogado');
        $CasoAsgnado->id_caso=$request->input('id_caso');
 

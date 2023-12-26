@@ -12,14 +12,28 @@
     @stack('css')
     @yield('css')
     @yield('estilos')
-
+    <style>
+        body {
+            background-image: url('{{ asset('images/hero.avif') }}'); /* Ajusta la ruta según tu estructura de carpetas */
+            background-size: cover; /* Para cubrir todo el cuerpo */
+            background-position: center; /* Centra la imagen */
+        
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.6); /* Ajusta el valor alfa para la transparencia */
+        }
+        .card-body{
+            background-color: rgba(255, 255, 255, 0.0);
+        }
+    </style>
 
 @stop
+
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
 
 @section('body')
-    <div class="{{ $auth_type ?? 'login' }}-box">
+    <div class="{{ $auth_type ?? 'login' }}-box ">
 
         {{-- Logo --}}
         <div class="{{ $auth_type ?? 'login' }}-logo">

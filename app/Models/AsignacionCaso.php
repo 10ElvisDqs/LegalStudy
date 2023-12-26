@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Asignacion_Caso extends Model
+class AsignacionCaso extends Model
 {
     use HasFactory;
     protected $table = 'asignacion_casos'; // Especifica el nombre de la tabla intermedia

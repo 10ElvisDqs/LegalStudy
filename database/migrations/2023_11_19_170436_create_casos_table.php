@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->string('titulo',100);
-            $table->string('descripcion');
+            $table->string('descripcion',500);
             $table->date('fecha_apertura');
             $table->string('estado');
             $table->unsignedBigInteger('id_tipo');
@@ -32,7 +32,8 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
+    { 
+        
         Schema::dropIfExists('casos');
     }
 };

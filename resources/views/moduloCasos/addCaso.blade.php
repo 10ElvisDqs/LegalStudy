@@ -111,9 +111,9 @@
                                         </div>
                                     </x-slot>
                                     <option value="">Seleccione un tipo</option>
-                                        <option value="abierto" >abierto</option>
-                                        <option value="ejecucion" >ejecucion</option>
-                                        <option value="cerrado" >cerrado</option>
+                                        <option value="Abierto" >Abierto</option>
+                                        <option value="Ejecucion" >Ejecucion</option>
+                                        <option value="Cerrado" >Cerrado</option>
 
                         </x-adminlte-select2>
                     </div>

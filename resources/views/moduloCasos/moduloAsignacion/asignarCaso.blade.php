@@ -246,15 +246,15 @@
                            <td>
 
                                 @switch($caso->estado)
-                                    @case('abierto')
+                                    @case('Abierto')
                                         <div class="btn btn-success rounded-pill px-3">{{$caso->estado }}</div>
                                         @break
 
-                                    @case('ejecucion')
+                                    @case('Ejecucion')
                                         <div class="btn btn-info rounded-pill px-3">{{$caso->estado }}</div>
                                         @break
 
-                                    @case('cerrado')
+                                    @case('Cerrado')
                                         <div class="btn btn-danger rounded-pill px-3">{{$caso->estado }}</div>
                                         @break
 
